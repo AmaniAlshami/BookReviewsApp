@@ -6,13 +6,52 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-    <TextView
+    <Button
+        android:id="@+id/toLogin"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Book Reviews App"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginTop="326dp"
+        android:text="Login"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/logout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="57dp"
+        android:text="log out"
+        app:layout_constraintStart_toStartOf="@+id/toLogin"
+        app:layout_constraintTop_toBottomOf="@+id/toLogin" />
+
+    <Button
+        android:id="@+id/toProfile"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="30dp"
+        android:text="Profile"
+        app:layout_constraintBottom_toTopOf="@+id/toLogin"
+        app:layout_constraintStart_toStartOf="@+id/toLogin" />
+
+    <Button
+        android:id="@+id/btnimage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="2dp"
+        android:layout_marginBottom="30dp"
+        android:text="image"
+        app:layout_constraintBottom_toTopOf="@+id/toProfile"
+        app:layout_constraintEnd_toEndOf="@+id/toProfile" />
+
+    <Button
+        android:id="@+id/toChange"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="37dp"
+        android:layout_marginEnd="6dp"
+        android:text="Change"
+        app:layout_constraintEnd_toEndOf="@+id/logout"
+        app:layout_constraintTop_toBottomOf="@+id/logout" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

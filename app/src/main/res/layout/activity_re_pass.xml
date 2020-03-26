@@ -18,17 +18,18 @@
         android:theme="@style/ToolbarTheme" />
 
     <TextView
-        android:id="@+id/tvSignUp"
+        android:id="@+id/titale"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="50dp"
         android:elevation="10dp"
-        android:text="انضم إلينا"
-        android:textColor="#fff"
+        android:text="تغير كلمة المرور"
+        android:textColor="@color/colorWhite"
         android:textSize="20sp"
         android:textStyle="bold"
         android:transitionName="login" />
+
 
 
     <ScrollView
@@ -57,56 +58,56 @@
                     android:paddingBottom="35dp">
 
                     <TextView
-                        android:id="@+id/tvEmail"
+                        android:id="@+id/tvpass"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_margin="15dp"
-                        android:text="البريد الإلكتروني"
+                        android:text="كلمة المرور الحالية"
                         android:textColor="@color/colorBlue2"
                         android:textSize="14sp"
                         android:textStyle="bold" />
 
                     <EditText
-                        android:id="@+id/etEmail"
+                        android:id="@+id/edpass"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_below="@+id/tvEmail"
+                        android:layout_below="@+id/tvpass"
                         android:layout_marginLeft="15dp"
                         android:layout_marginRight="15dp"
                         android:drawablePadding="30dp"
-                        android:inputType="textEmailAddress"
+                        android:inputType="textPassword"
                         android:padding="10dp" />
 
 
                     <TextView
-                        android:id="@+id/tvUsername"
+                        android:id="@+id/tvnpass"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_below="@+id/etEmail"
+                        android:layout_below="@+id/edpass"
                         android:layout_margin="15dp"
-                        android:text="إسم المستخدم "
+                        android:text="كلمة المرور الجديدة  "
                         android:textColor="@color/colorBlue2"
                         android:textSize="14sp"
                         android:textStyle="bold" />
 
                     <EditText
-                        android:id="@+id/etUsername"
+                        android:id="@+id/enpass"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_below="@+id/tvUsername"
+                        android:layout_below="@+id/tvnpass"
                         android:layout_marginLeft="15dp"
                         android:layout_marginRight="15dp"
                         android:drawablePadding="30dp"
-                        android:inputType="text"
+                        android:inputType="textPassword"
                         android:padding="10dp" />
 
                     <TextView
                         android:id="@+id/tvPassword"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_below="@+id/etUsername"
+                        android:layout_below="@+id/enpass"
                         android:layout_margin="15dp"
-                        android:text="كلمة المرور "
+                        android:text="تأكيد كلمة المرور "
                         android:textColor="@color/colorBlue2"
                         android:textSize="14sp"
                         android:textStyle="bold" />
@@ -121,28 +122,28 @@
                         android:drawablePadding="30dp"
                         android:inputType="textPassword"
                         android:padding="10dp" />
+                    <!--
+                                        <TextView
+                                            android:id="@+id/tvRePassword"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:layout_below="@+id/etPassword"
+                                            android:layout_margin="15dp"
+                                            android:text="تأكيد كلمة المرور"
+                                            android:textColor="@color/colorBlue2"
+                                            android:textSize="14sp"
+                                            android:textStyle="bold" />
 
-                    <TextView
-                        android:id="@+id/tvRePassword"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_below="@+id/etPassword"
-                        android:layout_margin="15dp"
-                        android:text="تأكيد كلمة المرور"
-                        android:textColor="@color/colorBlue2"
-                        android:textSize="14sp"
-                        android:textStyle="bold" />
-
-                    <EditText
-                        android:id="@+id/etRePassword"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_below="@+id/tvRePassword"
-                        android:layout_marginLeft="15dp"
-                        android:layout_marginRight="15dp"
-                        android:drawablePadding="30dp"
-                        android:inputType="textPassword"
-                        android:padding="10dp" />
+                                        <EditText
+                                            android:id="@+id/etRePassword"
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:layout_below="@+id/tvRePassword"
+                                            android:layout_marginLeft="15dp"
+                                            android:layout_marginRight="15dp"
+                                            android:drawablePadding="30dp"
+                                            android:inputType="textPassword"
+                                            android:padding="10dp" />-->
 
                 </RelativeLayout>
 
@@ -161,14 +162,14 @@
                 android:elevation="10dp">
 
                 <Button
-                    android:id="@+id/btsignup"
+                    android:id="@+id/repassword"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:background="@drawable/bt_uisquare"
-                    android:text="تسجيل"
+                    android:text="حفظ التغيير"
                     android:textAllCaps="false"
-                    android:textColor="#fff" />
+                    android:textColor="@color/colorWhite" />
             </RelativeLayout>
         </RelativeLayout>
     </ScrollView>

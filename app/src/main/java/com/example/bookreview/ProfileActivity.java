@@ -20,18 +20,28 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
 public class ProfileActivity extends AppCompatActivity {
 
 
     private ImageButton edit;
-    TextView welcom , repassword ,logOut ;
+    TextView welcom , repassword ,delete ;
     EditText Username,useremail;
     Button save;
     private String email , name ;
-   // private FirebaseAuth auth;
-   // DatabaseReference ref;
-   // FirebaseUser user;
-  //  String uid;
+    private FirebaseAuth auth;
+    DatabaseReference ref;
+    FirebaseUser user;
+    String uid;
 
     @SuppressLint("WrongViewCast")
     @Override
@@ -41,7 +51,7 @@ public class ProfileActivity extends AppCompatActivity {
 
         repassword = findViewById(R.id.tvRepass);
         welcom = findViewById(R.id.welcom);
-        logOut = findViewById(R.id.logOut);
+        delete = findViewById(R.id.delete);
         edit = findViewById(R.id.edit);
         Username = findViewById(R.id.etUsername);
         useremail = findViewById(R.id.email);
@@ -75,7 +85,7 @@ public class ProfileActivity extends AppCompatActivity {
 
 
         //-----------------------------------------------------------//
-     /*   DATA FROM DB
+     //   DATA FROM DB
 
        auth = FirebaseAuth.getInstance();
 
@@ -153,7 +163,7 @@ public class ProfileActivity extends AppCompatActivity {
 
 
 
-        logOut.setOnClickListener(new View.OnClickListener() {
+        delete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 //progressBar.setVisibility(View.VISIBLE);
@@ -182,11 +192,11 @@ public class ProfileActivity extends AppCompatActivity {
         });
 
 
-*/
+
 
 
     }
-   // public void signOut() {auth.signOut();}
+    public void signOut() {auth.signOut();}
 
 
 }

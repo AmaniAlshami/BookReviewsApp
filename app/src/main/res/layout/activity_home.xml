@@ -89,7 +89,7 @@
                 android:layout_marginRight="24dp"
                 android:background="@drawable/bgitem"
                 android:layoutDirection="rtl"
-                android:onClick="movebook"
+                android:onClick="move"
                 android:orientation="horizontal">
 
                 <ImageView
@@ -129,7 +129,7 @@
                 android:layout_marginRight="24dp"
                 android:background="@drawable/bgitem"
                 android:layoutDirection="rtl"
-                android:onClick="movebookT"
+                android:onClick="move"
                 android:orientation="horizontal">
 
 

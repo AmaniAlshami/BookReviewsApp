@@ -22,7 +22,6 @@ public class BookHolder extends RecyclerView.ViewHolder {
     public BookHolder(View v) {
         super(v);
         mview = v ;
-//        id=(Button) itemView.findViewById(R.id.lockerId);
         book_title = itemView.findViewById(R.id.eventtitle);
         book_img = itemView.findViewById(R.id.eventpicture);
         book_layout = itemView.findViewById(R.id.eventparent);

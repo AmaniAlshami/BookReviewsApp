@@ -12,13 +12,18 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+
 public class LoginActivity extends AppCompatActivity {
 
     private EditText userMail, userPassword;
     private Button btnLogin;
     private TextView signUp;
-    //  private ProgressBar loginProgress;
-   // private FirebaseAuth auth;
+    // private ProgressBar loginProgress;
+    private FirebaseAuth auth;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,10 +31,10 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
 
 
-       // auth = FirebaseAuth.getInstance();
+       auth = FirebaseAuth.getInstance();
 
         initializeUI();
-        // HomeActivity = new Intent(this,com.example.aws.blogapp.Activities.Home.class);
+        //HomeActivity = new Intent(this,com.example.aws.blogapp.Activities.Home.class);
 
         signUp = findViewById(R.id.tvNewuser);
         signUp.setOnClickListener(new View.OnClickListener() {
@@ -70,7 +75,7 @@ public class LoginActivity extends AppCompatActivity {
             Toast.makeText(getApplicationContext(), "Please enter password!", Toast.LENGTH_LONG).show();
             return;
         }
-/*
+
         auth.signInWithEmailAndPassword(email, password)
                 .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                     @Override
@@ -81,7 +86,7 @@ public class LoginActivity extends AppCompatActivity {
                             //   loginProgress.setVisibility(View.VISIBLE);
 
 
-                            Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                            Intent intent = new Intent(getApplicationContext(), HomeActivity.class);
                             startActivity(intent);
                         }
                         else {
@@ -91,9 +96,9 @@ public class LoginActivity extends AppCompatActivity {
                         }
                     }
                 });
-    }*/
-
     }
+
+
     private void initializeUI() {
         userMail = findViewById(R.id.etUsername);
         userPassword = findViewById(R.id.etPassword);

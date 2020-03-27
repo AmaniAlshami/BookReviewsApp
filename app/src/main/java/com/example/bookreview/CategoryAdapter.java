@@ -14,23 +14,24 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 public class CategoryAdapter extends RecyclerView.Adapter<CategoryView> implements Filterable{
 
 
-    List<HashMap<String,Object>> furnitureList = new ArrayList<>();
-    List<HashMap<String,Object>> filteredList = new ArrayList<>();
+
     CustomFilter customFilter;
     Context context;
+    private List<Book> bookList = new ArrayList<>();
+    private List<Book> filteredList = new ArrayList<>();
 
-    public CategoryAdapter(Context context, List<HashMap<String, Object>> fList) {
-        this.furnitureList = fList;
-        filteredList = furnitureList;
-        customFilter = new CustomFilter();
-        this.context = context;
+   public CategoryAdapter(Context context, List<Book> bookListt){
+       filteredList = bookList;
+       customFilter = new CustomFilter();
+       this.context = context;
+       this.bookList = bookListt;
     }
+
 
     @NonNull
     @Override
@@ -42,45 +43,32 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryView> implemen
     }
 
     @Override
-    public void onBindViewHolder(@NonNull final CategoryView categoryView, final int position) {
+    public void onBindViewHolder(@NonNull final CategoryView categoryView, final int i) {
 
-        final HashMap<String,Object> map = filteredList.get(position);
-        Picasso.get().load(String.valueOf(map.get(position))).into(categoryView.bookimage);
-        //categoryView.bookimage.setText(String.valueOf(map.get("bookImage")));
-        categoryView.bookTitle.setText(String.valueOf(map.get("Booktitle")));
+        final Book book = bookList.get(i);
+        categoryView.bookTitle.setText(book.getBookname());
+        Picasso.get().load(book.getImage()).into(categoryView.bookimage);
 
-        /*  categoryView.linearLayout.setOnClickListener( new View.OnClickListener() {
 
-          // TO comment activity
-
-           @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(view.getContext(),BookCommentActivity.class);
-                intent.putExtra("Booktitle",categoryView.bookTitle.getText());
-                intent.putExtra("bookImage",((Integer) map.get( "bookImage" )));
-                context.startActivity(intent);
+        categoryView.linearLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent bookComment = new Intent(context, BookCommentActivity.class);
+                bookComment.putExtra("booktitle", book.getBookname());
+                bookComment.putExtra("bookImage", book.getImage());
+                bookComment.putExtra("author", book.getAuthor());
+                bookComment.putExtra("desc", book.getDesc());
+                context.startActivity(bookComment);
             }
-        } );*/
-
+        });
 
 
     }
 
     @Override
     public int getItemCount() {
-        int a ;
 
-        if(filteredList != null && !filteredList.isEmpty()) {
-
-            a = filteredList.size();
-        }
-        else {
-
-            a = 0;
-
-        }
-
-        return a;
+        return bookList.size();
     }
 
     @Override
@@ -99,18 +87,18 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryView> implemen
 
             FilterResults filterResults = new FilterResults();
 
-            List<HashMap<String,Object>> newList = furnitureList;
-            List<HashMap<String,Object>> resultList = new ArrayList<>();
+              List<Book> newList = bookList ;
+              List<Book> resultList = new ArrayList<>();
 
             String searchValue = constraint.toString().toLowerCase();
 
-            for(int i=0;i<newList.size();i++){
+           for(int i=0;i<newList.size();i++){
 
-                HashMap<String,Object> map = newList.get(i);
-                String title = String.valueOf(map.get("Title"));
+                Book book = newList.get(i);
+                String title = book.getBookname();
 
                 if(title.toLowerCase().contains(searchValue)){
-                    resultList.add(map);
+                    resultList.add(book);
                 }
 
             }
@@ -125,7 +113,7 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryView> implemen
         @Override
         protected void publishResults(CharSequence constraint, FilterResults results) {
 
-            filteredList = (List<HashMap<String, Object>>) results.values;
+            filteredList = (List<Book>) results.values;
             notifyDataSetChanged();
 
         }

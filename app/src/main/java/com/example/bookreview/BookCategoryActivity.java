@@ -20,7 +20,6 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 
@@ -29,10 +28,8 @@ public class BookCategoryActivity extends AppCompatActivity {
     RecyclerView recyclerHome;
 
 
-    List<String> imageList = new ArrayList<>();
-    List<String> titleList = new ArrayList<>();
+    List<Book> booktList= new ArrayList<>();
 
-    List<HashMap<String,Object>> furnitureList = new ArrayList<>();
     CategoryAdapter categoryAdapter;
     DatabaseReference ref;
 
@@ -46,7 +43,12 @@ public class BookCategoryActivity extends AppCompatActivity {
         toolbarHome = (Toolbar) findViewById(R.id.toolbar_home);
         recyclerHome = (RecyclerView) findViewById(R.id.recycler_home);
 
-        toolbarHome.setTitle("كتب دينية");
+        String title = getIntent().getStringExtra("title");
+        toolbarHome.setTitle(title);
+        String child = getIntent().getStringExtra("child");
+
+
+
         toolbarHome.setTitleTextColor(Color.WHITE);
 
         setSupportActionBar(toolbarHome);
@@ -55,45 +57,22 @@ public class BookCategoryActivity extends AppCompatActivity {
         recyclerHome.setLayoutManager(layoutManager);
 
 
-        imageList.add("\"https://firebasestorage.googleapis.com/v0/b/bookreview-d9b02.appspot.com/o/book1.jpeg?alt=media&token=5f028e73-1475-4353-87ed-0f20067a4e5a\"");
-        imageList.add("\"https://firebasestorage.googleapis.com/v0/b/bookreview-d9b02.appspot.com/o/book1.jpeg?alt=media&token=5f028e73-1475-4353-87ed-0f20067a4e5a\"");
-
-        titleList.add("أقوم قيلا");
-        titleList.add("أول مرة اتلذذ بالدعاء");
-
-        for (int i = 0; i < imageList.size(); i++) {
-            HashMap<String, Object> map = new HashMap<>();
-            map.put("bookImage", imageList.get(i));
-            map.put("Booktitle", titleList.get(i));
-            furnitureList.add(map);
-        }
-        categoryAdapter = new CategoryAdapter(getApplicationContext(), furnitureList);
-        recyclerHome.setAdapter(categoryAdapter);
-
-        //---------------------------
 
         ref= FirebaseDatabase.getInstance().getReference();
-        DatabaseReference BookType=ref.child("Islamic");
+        DatabaseReference BookType=ref.child(child);
         ref.keepSynced(true);
         BookType.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if (dataSnapshot.exists()) {
                     for (DataSnapshot snap : dataSnapshot.getChildren()) {
-                        //Book type = snap.getValue(Book.class);
-                        String bookName = snap.child("bookName").getValue(String.class);
-                        String bookImage = snap.child("image").getValue(String.class);
-                        imageList.add(bookImage);
-                        titleList.add(bookName);
+
+                       Book bok=snap.getValue(Book.class);
+                        booktList.add(bok);
+
+
                     }
-//نجرب مره داخل ومره برا
-                    for (int i = 0; i < imageList.size(); i++) {
-                        HashMap<String, Object> map = new HashMap<>();
-                        map.put("bookImage", imageList.get(i));
-                        map.put("Booktitle", titleList.get(i));
-                        furnitureList.add(map);
-                    }
-                    categoryAdapter = new CategoryAdapter(getApplicationContext(), furnitureList);
+                    categoryAdapter = new CategoryAdapter(getApplicationContext(), booktList);
                     recyclerHome.setAdapter(categoryAdapter);
                 }
             }

@@ -36,7 +36,7 @@ public class ProfileActivity extends AppCompatActivity {
     private ImageButton edit;
     TextView welcom , repassword ,delete ;
     EditText Username,useremail;
-    Button save;
+    Button save , btLogin;
     private String email , name ;
     private FirebaseAuth auth;
     DatabaseReference ref;
@@ -55,14 +55,15 @@ public class ProfileActivity extends AppCompatActivity {
         edit = findViewById(R.id.edit);
         Username = findViewById(R.id.etUsername);
         useremail = findViewById(R.id.email);
-       // save = findViewById(R.id.save);
+        btLogin = findViewById(R.id.btLogin);
+        save = findViewById(R.id.save);
 
         repassword.setOnClickListener(new View.OnClickListener() {
             @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
             @Override
             public void onClick(View v) {
 
-                Intent a = new Intent(ProfileActivity.this, RegisterActivity.class);
+                Intent a = new Intent(ProfileActivity.this, RePassActivity.class);
                 Pair[] pairs = new Pair[1];
                 pairs[0] = new Pair<View, String>(welcom, "login");
                 ActivityOptions activityOptions = ActivityOptions.makeSceneTransitionAnimation(ProfileActivity.this, pairs);
@@ -191,7 +192,15 @@ public class ProfileActivity extends AppCompatActivity {
             }
         });
 
+        btLogin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FirebaseAuth.getInstance().signOut();
+                startActivity(new Intent(getApplicationContext() , HomeActivity.class));
+                Toast.makeText(getApplicationContext(), "Logged Out!", Toast.LENGTH_SHORT).show();
 
+            }
+        });
 
 
 

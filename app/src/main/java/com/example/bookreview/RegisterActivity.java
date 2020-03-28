@@ -11,13 +11,21 @@ import android.widget.EditText;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
 public class RegisterActivity extends AppCompatActivity {
     private EditText userEmail,userPassword,userPAssword2,userName;
    // private ProgressBar loadingProgress;
     private Button regBtn;
 
-    //private FirebaseAuth mAuth;
-   // private DatabaseReference ref ;
+     private FirebaseAuth mAuth;
+     private DatabaseReference ref ;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,7 +42,7 @@ public class RegisterActivity extends AppCompatActivity {
         // loadingProgress.setVisibility(View.INVISIBLE);
 
 
-       // mAuth = FirebaseAuth.getInstance();
+        mAuth = FirebaseAuth.getInstance();
 
 
 
@@ -61,7 +69,7 @@ public class RegisterActivity extends AppCompatActivity {
                     // everything is ok and all fields are filled now we can start creating user account
                     // CreateUserAccount method will try to create the user if the email is valid
 
-                    //CreateUserAccount(email,name,password);
+                    CreateUserAccount(email,name,password);
                 }
             }
         });
@@ -69,7 +77,7 @@ public class RegisterActivity extends AppCompatActivity {
 
     }
     // to create new user
-/*
+
     private void CreateUserAccount(String email, final String name, String password) {
 
 
@@ -96,7 +104,7 @@ public class RegisterActivity extends AppCompatActivity {
                 });
     }
 
-*/
+
 
     private void updateUI() {
         Intent homeActivity = new Intent(getApplicationContext(),HomeActivity.class);
@@ -112,7 +120,7 @@ public class RegisterActivity extends AppCompatActivity {
         Toast.makeText(getApplicationContext(),message,Toast.LENGTH_LONG).show();
 
     }
-/*
+
 // new user info
     private void info(){
         String name = userName.getText().toString().trim();
@@ -124,6 +132,6 @@ public class RegisterActivity extends AppCompatActivity {
         ref = FirebaseDatabase.getInstance().getReference();
         ref.child("info").child(user.getUid()).setValue(info);
     }
-*/
+
 }
 

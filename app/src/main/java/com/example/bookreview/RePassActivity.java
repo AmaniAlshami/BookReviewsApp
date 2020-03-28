@@ -16,15 +16,20 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+
 public class RePassActivity extends AppCompatActivity {
     private RelativeLayout rlayout;
     private Animation animation;
     private Menu menu;
     private TextView newPass ;
     private Button repassword ;
-    //private FirebaseAuth auth;
-    // FirebaseUser user;
-    //  String uid;
+    private FirebaseAuth auth;
+    FirebaseUser user;
+    String uid;
 
 
     @Override
@@ -42,11 +47,47 @@ public class RePassActivity extends AppCompatActivity {
         animation = AnimationUtils.loadAnimation(this, R.anim.uptodown);
         rlayout.setAnimation(animation);
 
-     //   auth = FirebaseAuth.getInstance();
+        auth = FirebaseAuth.getInstance();
 
-      //  user=FirebaseAuth.getInstance().getCurrentUser();
+        user = FirebaseAuth.getInstance().getCurrentUser();
+
+        repassword.setOnClickListener(new View.OnClickListener()
+
+        {
+            @Override
+            public void onClick (View v){
+                //progressBar.setVisibility(View.VISIBLE);
+                if (user != null && !newPass.getText().toString().trim().equals("")) {
+                    if (newPass.getText().toString().trim().length() < 6) {
+                        newPass.setError("Password too short, enter minimum 6 characters");
+                        //progressBar.setVisibility(View.GONE);
+                    } else {
+                        user.updatePassword(newPass.getText().toString())
+                                .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<Void> task) {
+                                        if (task.isSuccessful()) {
+                                            Toast.makeText(getApplicationContext(), "Password is updated, sign in with new password!", Toast.LENGTH_SHORT).show();
+                                            signOut();
+                                            Intent i = new Intent(getApplicationContext(), HomeActivity.class);
+                                            startActivity(i);
+                                            //progressBar.setVisibility(View.GONE);
+                                        } else {
+                                            Toast.makeText(getApplicationContext(), "Failed to update password!", Toast.LENGTH_SHORT).show();
+                                            // progressBar.setVisibility(View.GONE);
+                                        }
+                                    }
+                                });
+                    }
+                } else if (newPass.getText().toString().trim().equals("")) {
+                    newPass.setError("Enter password");
+                    //progressBar.setVisibility(View.GONE);
+                }
+            }
+        });
+
+
     }
-
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
@@ -56,44 +97,10 @@ public class RePassActivity extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(item);
 
-/*
-        repassword.setOnClickListener(new View.OnClickListener()
 
-    {
-        @Override
-        public void onClick (View v){
-        //progressBar.setVisibility(View.VISIBLE);
-        if (user != null && !newPass.getText().toString().trim().equals("")) {
-            if (newPass.getText().toString().trim().length() < 6) {
-                newPass.setError("Password too short, enter minimum 6 characters");
-                //progressBar.setVisibility(View.GONE);
-            } else {
-                user.updatePassword(newPass.getText().toString())
-                        .addOnCompleteListener(new OnCompleteListener<Void>() {
-                            @Override
-                            public void onComplete(@NonNull Task<Void> task) {
-                                if (task.isSuccessful()) {
-                                    Toast.makeText(getApplicationContext(), "Password is updated, sign in with new password!", Toast.LENGTH_SHORT).show();
-                                    signOut();
-                                    Intent i = new Intent(getApplicationContext(), HomeActivity.class);
-                                    startActivity(i);
-                                    //progressBar.setVisibility(View.GONE);
-                                } else {
-                                    Toast.makeText(getApplicationContext(), "Failed to update password!", Toast.LENGTH_SHORT).show();
-                                    // progressBar.setVisibility(View.GONE);
-                                }
-                            }
-                        });
-            }
-        } else if (newPass.getText().toString().trim().equals("")) {
-            newPass.setError("Enter password");
-            //progressBar.setVisibility(View.GONE);
-        }
-    }
-    }); */
 
     }
 
-    // public void signOut() {auth.signOut();}
+    public void signOut() {auth.signOut();}
 }
 

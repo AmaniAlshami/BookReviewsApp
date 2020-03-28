@@ -88,7 +88,7 @@
                         android:focusable="false"
                         android:inputType="text"
                         android:padding="10dp"
-                        android:text="ذكرى السحيباني" />
+                        android:text="" />
 
                     <TextView
                         android:id="@+id/tvEmail"
@@ -116,7 +116,7 @@
                         android:inputType="textEmailAddress"
                         android:layoutDirection="rtl"
                         android:padding="10dp"
-                        android:text="thtt@gmail.com" />
+                        android:text="" />
 
                 </RelativeLayout>
 
@@ -212,7 +212,7 @@
                 android:text="حذف الحساب"
                 android:textSize="14sp" />
 
-            <!--   NO SAVE Button
+            <!--   NO SAVE Button  -->
                 <Button
                        android:layout_width="match_parent"
                        android:layout_height="wrap_content"
@@ -230,7 +230,7 @@
                        android:background="@drawable/bt_uifb"
                        android:textColor="@color/colorBlue"
                        tools:ignore="DuplicateIds" />
-       -->
+
 
         </RelativeLayout>
     </ScrollView>

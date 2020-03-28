@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "1069602131975-fq0jk6h2q6262kiib9fl738r1nnq2ime.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.bookreview",
+            "certificate_hash": "13852830d4f15d5f732023a6b6de6bcd9194170e"
+          }
+        },
+        {
           "client_id": "1069602131975-op67esccqblm2m746prhr82cocsrsru5.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {

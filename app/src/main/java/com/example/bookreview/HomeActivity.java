@@ -16,10 +16,13 @@ import android.view.View;
 import android.view.animation.AccelerateInterpolator;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.github.rubensousa.gravitysnaphelper.GravitySnapHelper;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -31,7 +34,8 @@ import java.util.List;
 
 public class HomeActivity extends AppCompatActivity {
 
-
+    private FirebaseAuth mAuth;
+    private FirebaseAuth.AuthStateListener mAuthListener;
     private TextView toProfile ;
     RecyclerView booksplace;
     BookAdapetr bookAdapter ;
@@ -61,14 +65,40 @@ public class HomeActivity extends AppCompatActivity {
         d = findViewById(R.id.iemSlid3);
         e = findViewById(R.id.iemSlid4);
         f = findViewById(R.id.iemSlid5);
+        mAuth = FirebaseAuth.getInstance();
 
         toProfile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(getApplicationContext(), BookCategoryActivity.class);
-                startActivity(i);
+                FirebaseUser user = mAuth.getCurrentUser();
+                if (user != null) {
+                    Intent i = new Intent(getApplicationContext(), ProfileActivity.class);
+                    startActivity(i);
+                } else {
+                    Intent i = new Intent(getApplicationContext(), LoginActivity.class);
+                    startActivity(i);
+                }
+
             }
         });
+
+
+
+        mAuthListener = new FirebaseAuth.AuthStateListener() {
+            @Override
+            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
+                FirebaseUser user = firebaseAuth.getCurrentUser();
+                if (user != null) {
+                    // User is signed in
+                    toastMessage("Successfully signed in with: " + user.getEmail());
+                } else {
+                    // User is signed out
+                    toastMessage("Successfully signed out.");
+                }
+                // ...
+            }
+        };
+
 
         // ----------------------------------------------------------------------- //
 
@@ -195,7 +225,8 @@ public class HomeActivity extends AppCompatActivity {
                 i.putExtra("title","sss");
                 }
                 else if(v==e){
-                i.putExtra("title","fff");
+                i.putExtra("title","كتب ريادة الأعمال ");
+                i.putExtra("child","أعمال");
                 }
                 else if(v==d){
                 i.putExtra("title","tt");
@@ -209,7 +240,27 @@ public class HomeActivity extends AppCompatActivity {
 
         }
 
+    @Override
+    public void onStart() {
+        super.onStart();
+        mAuth.addAuthStateListener(mAuthListener);
+    }
 
+    @Override
+    public void onStop() {
+        super.onStop();
+        if (mAuthListener != null) {
+            mAuth.removeAuthStateListener(mAuthListener);
+        }
+    }
+
+    /**
+     * customizable toast
+     * @param message
+     */
+    private void toastMessage(String message){
+        Toast.makeText(this,message,Toast.LENGTH_SHORT).show();
+    }
 
 
 }

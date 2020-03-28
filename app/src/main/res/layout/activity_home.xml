@@ -344,12 +344,12 @@
 
     <TextView
         android:id="@+id/toProfile"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="47dp"
+        android:layout_height="40dp"
         android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
-        android:text="البروفايل"
-        android:layoutDirection="rtl"
+        android:layout_marginEnd="372dp"
+        android:drawableLeft="@drawable/ic_account_24dp"
+        android:text=""
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 

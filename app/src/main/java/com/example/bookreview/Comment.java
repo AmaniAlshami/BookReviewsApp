@@ -5,7 +5,7 @@ import com.google.firebase.database.ServerValue;
 public class Comment {
 
     private String content,uid,uname;
-    private Object timestamp;
+    //private Object timestamp;
 
 
     public Comment() {
@@ -15,7 +15,13 @@ public class Comment {
         this.content = content;
         this.uid = uid;
         this.uname = uname;
-        this.timestamp = ServerValue.TIMESTAMP;
+       // this.timestamp = ServerValue.TIMESTAMP;
+
+    }
+    public Comment(String content,String uname) {
+        this.content = content;
+        this.uname = uname;
+        //this.timestamp = ServerValue.TIMESTAMP;
 
     }
 
@@ -24,7 +30,7 @@ public class Comment {
         this.uid = uid;
 
         this.uname = uname;
-        this.timestamp = timestamp;
+      //  this.timestamp = timestamp;
     }
 
     public String getContent() {
@@ -51,11 +57,7 @@ public class Comment {
         this.uname = uname;
     }
 
-    public Object getTimestamp() {
-        return timestamp;
-    }
+ //   public Object getTimestamp() { return timestamp; }
 
-    public void setTimestamp(Object timestamp) {
-        this.timestamp = timestamp;
-    }
+  //  public void setTimestamp(Object timestamp) {this.timestamp = timestamp;}
 }

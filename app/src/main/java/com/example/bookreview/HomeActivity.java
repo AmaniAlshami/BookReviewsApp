@@ -220,19 +220,24 @@ public class HomeActivity extends AppCompatActivity {
                 }
                 else if(v==b){
                     i.putExtra("title","كتب تطوير ذات");
-                }
-                else if(v==c){
-                i.putExtra("title","sss");
+                    i.putExtra("child","تطوير");
+
+            }
+                else if(v==d){
+                i.putExtra("title","كتب تاريخ");
+                i.putExtra("child","تاريخ");
                 }
                 else if(v==e){
                 i.putExtra("title","كتب ريادة الأعمال ");
                 i.putExtra("child","أعمال");
                 }
-                else if(v==d){
-                i.putExtra("title","tt");
+                else if(v==c){
+                i.putExtra("title","كتب إجتماعية");
+                i.putExtra("child","إجتماعية");
                 }
                 else if(v==f){
-                i.putExtra("title","uu");
+                i.putExtra("title","قصص وروايات");
+                i.putExtra("child","روايات");
 
                 }
             startActivity(i);

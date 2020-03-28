@@ -76,8 +76,12 @@ public class ProfileActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Username.setEnabled(true);
+                Username.setFocusableInTouchMode(true);
                 useremail.setEnabled(true);
+                useremail.setFocusableInTouchMode(true);
                 save.setEnabled(true);
+                save.setFocusableInTouchMode(true);
+
             }
         });
 
@@ -119,21 +123,27 @@ public class ProfileActivity extends AppCompatActivity {
             public void onClick(View view) {
 
                 // name
-                name = Username.getText().toString();
-                Info info = new Info();
-                info.setName(name);
-                info.setEmail(email);
-                ref = FirebaseDatabase.getInstance().getReference();
-                ref.child("info").child(uid).setValue(info);
-                Toast.makeText(getApplicationContext(), "Name Updated", Toast.LENGTH_SHORT).show();
-                //startActivity(new Intent(getApplicationContext() , ProfileActivity.class));
 
+
+                if(!Username.getText().toString().equals(name)&&!Username.getText().toString().equals("")) {
+                    Info info = new Info();
+                    name = Username.getText().toString();
+                    info.setName(name);
+                    info.setEmail(email);
+                    ref = FirebaseDatabase.getInstance().getReference();
+                    ref.child("info").child(uid).setValue(info);
+                    Toast.makeText(getApplicationContext(), "تم تحديث الاسم", Toast.LENGTH_SHORT).show();
+                    //startActivity(new Intent(getApplicationContext() , ProfileActivity.class));
+                } else if (Username.getText().toString().trim().equals("")) {
+                    Toast.makeText(getApplicationContext(), "لايمكن تركه فارغًا", Toast.LENGTH_SHORT).show();
+                    // progressBar.setVisibility(View.GONE);
+            }
 
                 //email
 
                 FirebaseUser user = auth.getCurrentUser();
 
-                if (user != null && !useremail.getText().toString().equals("")) {
+                if (user != null && !useremail.getText().toString().equals("")&&!useremail.getText().toString().equals(email)) {
                     user.updateEmail(useremail.getText().toString())
                             .addOnCompleteListener(new OnCompleteListener<Void>() {
                                 @Override
@@ -168,6 +178,7 @@ public class ProfileActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 //progressBar.setVisibility(View.VISIBLE);
+               // ref.child("info").child(uid).removeValue();
                 FirebaseUser user = auth.getCurrentUser();
                 if (user != null) {
                     user.delete()
@@ -175,22 +186,28 @@ public class ProfileActivity extends AppCompatActivity {
                                 @Override
                                 public void onComplete(@NonNull Task<Void> task) {
                                     if (task.isSuccessful()) {
-                                        finish();
                                         Toast.makeText(getApplicationContext(), "Your profile is deleted:( Create a account now!", Toast.LENGTH_SHORT).show();
-                                        ref.child("info").child(uid).removeValue();
                                         startActivity(new Intent(getApplicationContext(),RegisterActivity.class));
-                                        finish();
 
                                         //  progressBar.setVisibility(View.GONE);
                                     } else {
                                         Toast.makeText(getApplicationContext(), "Failed to delete your account!", Toast.LENGTH_SHORT).show();
                                         //  progressBar.setVisibility(View.GONE);
                                     }
+
                                 }
                             });
                 }
             }
         });
+
+
+
+
+
+
+
+
 
         btLogin.setOnClickListener(new View.OnClickListener() {
             @Override

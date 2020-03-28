@@ -213,23 +213,23 @@
                 android:textSize="14sp" />
 
             <!--   NO SAVE Button  -->
-                <Button
-                       android:layout_width="match_parent"
-                       android:layout_height="wrap_content"
-                       android:layout_below="@+id/repassword"
-                       android:layout_alignLeft="@+id/cv"
-                       android:layout_alignRight="@+id/cv"
-                       android:layout_marginLeft="20dp"
-                       android:layout_marginTop="20dp"
-                       android:layout_marginRight="20dp"
-                       android:paddingLeft="20dp"
-                       android:paddingRight="20dp"
-                       android:text="حفظ التعديلات "
-                       android:enabled="false"
-                       android:id="@+id/save"
-                       android:background="@drawable/bt_uifb"
-                       android:textColor="@color/colorBlue"
-                       tools:ignore="DuplicateIds" />
+            <Button
+                android:id="@+id/save"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/repassword"
+                android:layout_alignLeft="@+id/cv"
+                android:layout_alignRight="@+id/cv"
+                android:layout_marginLeft="18dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginRight="22dp"
+                android:background="@drawable/bt_uifb"
+                android:enabled="false"
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp"
+                android:text="حفظ التعديلات "
+                android:textColor="@color/colorBlue"
+                tools:ignore="DuplicateIds" />
 
 
         </RelativeLayout>

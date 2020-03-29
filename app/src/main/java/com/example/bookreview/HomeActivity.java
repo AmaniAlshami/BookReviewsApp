@@ -216,7 +216,7 @@ public class HomeActivity extends AppCompatActivity {
 
             if ( v == a){
                     i.putExtra("title","كتب اسلامية");
-                    i.putExtra("child","دينية");
+                    i.putExtra("child","ديني");
                 }
                 else if(v==b){
                     i.putExtra("title","كتب تطوير ذات");
@@ -231,11 +231,11 @@ public class HomeActivity extends AppCompatActivity {
                 i.putExtra("title","كتب ريادة الأعمال ");
                 i.putExtra("child","أعمال");
                 }
-                else if(v==c){
-                i.putExtra("title","كتب إجتماعية");
-                i.putExtra("child","إجتماعية");
-                }
                 else if(v==f){
+                i.putExtra("title","كتب إجتماعية");
+                i.putExtra("child","اجتماعي");
+                }
+                else if(v==c){
                 i.putExtra("title","قصص وروايات");
                 i.putExtra("child","روايات");
 

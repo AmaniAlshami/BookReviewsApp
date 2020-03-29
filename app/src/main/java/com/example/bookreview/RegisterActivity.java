@@ -132,6 +132,10 @@ public class RegisterActivity extends AppCompatActivity {
         ref = FirebaseDatabase.getInstance().getReference();
         ref.child("info").child(user.getUid()).setValue(info);
     }
+    public void moveToHome(View v){
 
+        Intent intent = new Intent(getApplicationContext(), HomeActivity.class);
+        startActivity(intent);
+    }
 }
 

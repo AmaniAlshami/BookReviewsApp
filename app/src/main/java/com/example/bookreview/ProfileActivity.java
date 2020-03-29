@@ -192,5 +192,9 @@ public class ProfileActivity extends AppCompatActivity {
     }
     public void signOut() {auth.signOut();}
 
+    public void moveToHome(View v){
 
+        Intent intent = new Intent(getApplicationContext(), HomeActivity.class);
+        startActivity(intent);
+    }
 }

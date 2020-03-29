@@ -19,6 +19,17 @@
         android:theme="@style/ToolbarTheme" />
 
 
+    <ImageView
+        android:id="@+id/welcom2"
+        android:layout_width="134dp"
+        android:layout_height="99dp"
+        android:layout_marginLeft="0dp"
+        android:layout_marginTop="45dp"
+        android:layout_marginRight="300dp"
+        android:src="@drawable/icon"
+        android:onClick="moveToHome"
+        android:textColor="@color/colorWhite"
+        android:transitionName="login" />
     <TextView
         android:id="@+id/tvLogin"
         android:layout_width="wrap_content"

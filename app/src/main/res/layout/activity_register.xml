@@ -15,7 +15,19 @@
         android:layout_height="120dp"
         android:elevation="10dp"
         android:background="@drawable/bck"
-        android:theme="@style/ToolbarTheme" />
+        android:theme="@style/ToolbarTheme">
+    <ImageView
+        android:id="@+id/welcomq"
+        android:layout_width="130dp"
+        android:layout_height="85dp"
+        android:layout_marginLeft="0dp"
+        android:layout_marginRight="290dp"
+        android:src="@drawable/icon"
+        android:onClick="moveToHome"
+        android:textColor="@color/colorWhite"
+        android:transitionName="login" />
+
+    </androidx.appcompat.widget.Toolbar>
 
     <TextView
         android:id="@+id/tvSignUp"

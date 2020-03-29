@@ -108,5 +108,11 @@ public class LoginActivity extends AppCompatActivity {
         btnLogin = findViewById(R.id.btLogin);
         loginProgress = findViewById(R.id.progressBar);
     }
+
+    public void moveToHome(View v){
+
+        Intent intent = new Intent(getApplicationContext(), HomeActivity.class);
+        startActivity(intent);
+    }
 }
 

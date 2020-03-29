@@ -155,13 +155,13 @@ public class ProfileActivity extends AppCompatActivity {
                                         info.setEmail(useremail.getText().toString());
                                         ref = FirebaseDatabase.getInstance().getReference();
                                         ref.child("info").child(uid).setValue(info);
-                                        Toast.makeText(getApplicationContext(), "Email address is updated. Please sign in with new email id!", Toast.LENGTH_LONG).show();
+                                        Toast.makeText(getApplicationContext(), "تم تحديث البريد الإلكتروني ، سجل من جديد", Toast.LENGTH_LONG).show();
                                         signOut();
                                         Intent i = new Intent(getApplicationContext(),LoginActivity.class);
                                         startActivity(i);
                                         //progressBar.setVisibility(View.GONE);
                                     } else {
-                                        Toast.makeText(getApplicationContext(), "Failed to update email!", Toast.LENGTH_LONG).show();
+                                        Toast.makeText(getApplicationContext(), "نعتذر لم تتم العملية حاول مرة أخرى", Toast.LENGTH_LONG).show();
                                         // progressBar.setVisibility(View.GONE);
                                     }
                                 }
@@ -182,7 +182,7 @@ public class ProfileActivity extends AppCompatActivity {
                 btLogin.setVisibility(View.INVISIBLE);
                 FirebaseAuth.getInstance().signOut();
                 startActivity(new Intent(getApplicationContext() , HomeActivity.class));
-                Toast.makeText(getApplicationContext(), "Logged Out!", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), "تم تسجيل الخروج ، ننتظر عودتك قريبًا", Toast.LENGTH_SHORT).show();
 
             }
         });

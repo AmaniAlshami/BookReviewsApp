@@ -14,7 +14,7 @@
         android:id="@+id/toolbar_home"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/colorPrimary"></androidx.appcompat.widget.Toolbar>
+        android:background="@color/colorBlue2"></androidx.appcompat.widget.Toolbar>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler_home"

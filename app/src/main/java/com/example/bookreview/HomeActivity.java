@@ -90,10 +90,10 @@ public class HomeActivity extends AppCompatActivity {
                 FirebaseUser user = firebaseAuth.getCurrentUser();
                 if (user != null) {
                     // User is signed in
-                    toastMessage("Successfully signed in with: " + user.getEmail());
+                    toastMessage("أهلًا بك");
                 } else {
                     // User is signed out
-                    toastMessage("Successfully signed out.");
+                    //toastMessage("Successfully signed out.");
                 }
                 // ...
             }

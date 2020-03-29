@@ -79,20 +79,25 @@ public class BookCommentActivity extends AppCompatActivity {
         bookdesc.setText(desc);
 
 
-        firebaseAuth = FirebaseAuth.getInstance();
-        firebaseUser = firebaseAuth.getCurrentUser();
+
         firebaseDatabase = FirebaseDatabase.getInstance();
 
        // Intent i = new Intent(getApplicationContext(),CommentAdapter.class);
        // i.putExtra("Title",title());
       //  commentAdapter = new CommentAdapter(getApplicationContext(),title());
 
-        displayName();
+
 
         btnAddComment.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
+
+                firebaseAuth = FirebaseAuth.getInstance();
+                FirebaseUser user = firebaseAuth.getCurrentUser();
+                if (user != null) {
+                firebaseUser = firebaseAuth.getCurrentUser();
+                    displayName();
                 btnAddComment.setVisibility(View.INVISIBLE);
                 DatabaseReference commentReference = FirebaseDatabase.getInstance().getReference().child("Comment").child(bookTitle).push();
 
@@ -105,16 +110,19 @@ public class BookCommentActivity extends AppCompatActivity {
                 commentReference.setValue(comment).addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {
-                        showMessage("comment added");
+                        showMessage("شكرًا لإنارتك");
                         editTextComment.setText("");
                         btnAddComment.setVisibility(View.VISIBLE);
                     }
                 }).addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
-                        showMessage("fail to add comment : " + e.getMessage());
+                        showMessage("عذٌرا هناك مشكلة حاول مرة أخرى");
                     }
-                });
+                });}
+                else {
+                    showMessage("سجل معنا لتشاركنا إضاءتك");
+                }
 
 
             }

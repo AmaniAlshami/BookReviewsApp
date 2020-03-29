@@ -14,8 +14,10 @@
         <ImageView
             android:id="@+id/im"
             android:layout_width="0dp"
-            android:layout_height="300dp"
+            android:layout_height="0dp"
+            android:layout_marginBottom="72dp"
             android:scaleType="centerCrop"
+            app:layout_constraintBottom_toTopOf="@+id/post_detail_date_name"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
@@ -41,11 +43,11 @@
         <View
             android:id="@+id/view"
             android:layout_width="0dp"
-            android:layout_height="1dp"
+            android:layout_height="5dp"
             android:layout_marginStart="16dp"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="16dp"
-            android:background="#2e2e2e"
+            android:background="@color/colorBlue2"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
@@ -55,15 +57,14 @@
             android:id="@+id/post_detail_date_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="8dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="343dp"
+            android:layoutDirection="rtl"
             android:text=" فهد عامر الأحمد | 332 صفحة "
             android:textSize="12sp"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/view"
+            app:layout_constraintTop_toBottomOf="@+id/im"
             tools:text=" فهد عامر الأحمد" />
 
         <TextView
@@ -90,8 +91,7 @@
             android:layout_marginTop="24dp"
             android:tint="@color/colorPrimaryDark"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/post_detail_desc"
-             />
+            app:layout_constraintTop_toBottomOf="@+id/post_detail_desc" />
 
         <EditText
 
@@ -113,8 +113,9 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:layout_marginEnd="8dp"
-            android:backgroundTint="@color/colorPrimaryDark"
+            android:backgroundTint="@color/colorBlue2"
             android:text="إرسال"
+            android:textColor="@color/colorWhite"
             app:layout_constraintBottom_toBottomOf="@+id/post_detail_comment"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
@@ -141,8 +142,7 @@
             android:scrollbars="vertical"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/post_detail_comment"
-            />
+            app:layout_constraintTop_toBottomOf="@+id/post_detail_comment" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

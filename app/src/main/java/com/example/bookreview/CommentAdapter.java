@@ -104,7 +104,7 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.CommentV
             tv_del.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Toast.makeText(mContext,"Comment deleted",Toast.LENGTH_LONG).show();
+                    Toast.makeText(mContext,"تم الحذف",Toast.LENGTH_LONG).show();
                     delcomment();
 
                 }

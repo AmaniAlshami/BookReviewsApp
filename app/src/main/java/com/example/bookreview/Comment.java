@@ -4,17 +4,18 @@ import com.google.firebase.database.ServerValue;
 
 public class Comment {
 
-    private String content,uid,uname;
+    private String content,uid,uname , cid;
     //private Object timestamp;
 
 
     public Comment() {
     }
 
-    public Comment(String content, String uid,String uname) {
+    public Comment(String content, String uid,String uname,String cid) {
         this.content = content;
         this.uid = uid;
         this.uname = uname;
+        this.cid = cid ;
        // this.timestamp = ServerValue.TIMESTAMP;
 
     }
@@ -25,10 +26,17 @@ public class Comment {
 
     }
 
+    public String getCid() {
+        return cid;
+    }
+
+    public void setCid(String cid) {
+        this.cid = cid;
+    }
+
     public Comment(String content, String uid, String uimg, String uname, Object timestamp) {
         this.content = content;
         this.uid = uid;
-
         this.uname = uname;
       //  this.timestamp = timestamp;
     }

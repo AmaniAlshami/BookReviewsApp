@@ -17,6 +17,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -34,8 +35,9 @@ public class ProfileActivity extends AppCompatActivity {
 
 
     private ImageButton edit;
-    TextView welcom , repassword ,delete ;
+    TextView welcom , repassword  ;
     EditText Username,useremail;
+    ProgressBar progressBar3 ;
     Button save , btLogin;
     private String email , name ;
     private FirebaseAuth auth;
@@ -51,13 +53,12 @@ public class ProfileActivity extends AppCompatActivity {
 
         repassword = findViewById(R.id.tvRepass);
         welcom = findViewById(R.id.welcom);
-        delete = findViewById(R.id.delete);
         edit = findViewById(R.id.edit);
         Username = findViewById(R.id.etUsername);
         useremail = findViewById(R.id.email);
         btLogin = findViewById(R.id.btLogin);
         save = findViewById(R.id.save);
-
+        progressBar3 = findViewById(R.id.progressBar3);
         repassword.setOnClickListener(new View.OnClickListener() {
             @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
             @Override
@@ -108,7 +109,7 @@ public class ProfileActivity extends AppCompatActivity {
 
                 Username.setText(name);
                 useremail.setText(email);
-                welcom.setText(name);
+                welcom.setText("أهلًا "+name);
 
             }
 
@@ -174,44 +175,11 @@ public class ProfileActivity extends AppCompatActivity {
 
 
 
-        delete.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                //progressBar.setVisibility(View.VISIBLE);
-               // ref.child("info").child(uid).removeValue();
-                FirebaseUser user = auth.getCurrentUser();
-                if (user != null) {
-                    user.delete()
-                            .addOnCompleteListener(new OnCompleteListener<Void>() {
-                                @Override
-                                public void onComplete(@NonNull Task<Void> task) {
-                                    if (task.isSuccessful()) {
-                                        Toast.makeText(getApplicationContext(), "Your profile is deleted:( Create a account now!", Toast.LENGTH_SHORT).show();
-                                        startActivity(new Intent(getApplicationContext(),RegisterActivity.class));
-
-                                        //  progressBar.setVisibility(View.GONE);
-                                    } else {
-                                        Toast.makeText(getApplicationContext(), "Failed to delete your account!", Toast.LENGTH_SHORT).show();
-                                        //  progressBar.setVisibility(View.GONE);
-                                    }
-
-                                }
-                            });
-                }
-            }
-        });
-
-
-
-
-
-
-
-
-
         btLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                progressBar3.setVisibility(View.VISIBLE);
+                btLogin.setVisibility(View.INVISIBLE);
                 FirebaseAuth.getInstance().signOut();
                 startActivity(new Intent(getApplicationContext() , HomeActivity.class));
                 Toast.makeText(getApplicationContext(), "Logged Out!", Toast.LENGTH_SHORT).show();

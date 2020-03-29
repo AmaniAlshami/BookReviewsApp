@@ -151,6 +151,13 @@
                     android:text=" تسجيل دخول"
                     android:textAllCaps="false"
                     android:textColor="#fff" />
+
+                <ProgressBar
+                    android:id="@+id/progressBar"
+                    style="?android:attr/progressBarStyle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="130dp"/>
             </RelativeLayout>
 
 

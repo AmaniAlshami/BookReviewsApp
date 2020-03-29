@@ -14,7 +14,8 @@
         <activity android:name=".RegisterActivity" />
         <activity android:name=".LoginActivity" />
         <activity android:name=".BookCategoryActivity" />
-        <activity android:name=".BookCommentActivity" />
+        <activity android:name=".BookCommentActivity"
+            android:windowSoftInputMode="stateHidden|adjustPan"/>
         <activity android:name=".HomeActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

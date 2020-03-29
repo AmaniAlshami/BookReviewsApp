@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -22,6 +23,7 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
@@ -32,21 +34,20 @@ import java.util.List;
 
 public class BookCommentActivity extends AppCompatActivity {
 
-    TextView bookname , bookauthor ,bookdesc ;
-    ImageView image ;
-    Button btnAddComment, btndelete;
+    TextView bookname, bookauthor, bookdesc, del;
+    ImageView image;
+    Button btnAddComment;
     String bookTitle;
     EditText editTextComment;
     FirebaseAuth firebaseAuth;
     FirebaseUser firebaseUser;
-    FirebaseDatabase firebaseDatabase , ref;
+    FirebaseDatabase firebaseDatabase;
     RecyclerView RvComment;
     CommentAdapter commentAdapter;
     List<Comment> listComment;
     Comment comment;
     FirebaseUser user;
-    String uid , name;
-
+    String uid, name, cid;
 
 
     @Override
@@ -56,26 +57,23 @@ public class BookCommentActivity extends AppCompatActivity {
 
 
         RvComment = findViewById(R.id.rv_comment);
-        RvComment.setLayoutManager(new LinearLayoutManager(getApplicationContext(),LinearLayoutManager.VERTICAL,false));
+        RvComment.setLayoutManager(new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.VERTICAL, false));
 
 
-
-
-
+        del = findViewById(R.id.btndelete);
         bookname = findViewById(R.id.tx);
         bookauthor = findViewById(R.id.post_detail_date_name);
         bookdesc = findViewById(R.id.post_detail_desc);
         image = findViewById(R.id.im);
         btnAddComment = findViewById(R.id.post_detail_add_comment_btn);
         editTextComment = findViewById(R.id.post_detail_comment);
-        btndelete = findViewById(R.id.btndelete);
 
 
-        String bookImage = getIntent().getStringExtra("bookImage") ;
+        String bookImage = getIntent().getStringExtra("bookImage");
         Picasso.get().load(bookImage).into(image);
-         bookTitle =getIntent().getStringExtra("booktitle");
+        bookTitle = getIntent().getStringExtra("booktitle");
         bookname.setText(bookTitle);
-        String author =getIntent().getStringExtra("author");
+        String author = getIntent().getStringExtra("author");
         bookauthor.setText(author);
         String desc = getIntent().getStringExtra("desc");
         bookdesc.setText(desc);
@@ -85,6 +83,9 @@ public class BookCommentActivity extends AppCompatActivity {
         firebaseUser = firebaseAuth.getCurrentUser();
         firebaseDatabase = FirebaseDatabase.getInstance();
 
+       // Intent i = new Intent(getApplicationContext(),CommentAdapter.class);
+       // i.putExtra("Title",title());
+      //  commentAdapter = new CommentAdapter(getApplicationContext(),title());
 
         displayName();
 
@@ -97,9 +98,10 @@ public class BookCommentActivity extends AppCompatActivity {
 
                 String comment_content = editTextComment.getText().toString();
                 String uid = firebaseUser.getUid();
-                String uname = name ;
+                String uname = name;
+                cid = commentReference.getKey();
 
-                comment = new Comment(comment_content,uid,uname);
+                comment = new Comment(comment_content, uid, uname, cid);
                 commentReference.setValue(comment).addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {
@@ -110,47 +112,36 @@ public class BookCommentActivity extends AppCompatActivity {
                 }).addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
-                        showMessage("fail to add comment : "+e.getMessage());
+                        showMessage("fail to add comment : " + e.getMessage());
                     }
                 });
-
 
 
             }
         });
         iniRvComment();
 
-      /* btndelete.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                DatabaseReference commentRef = firebaseDatabase.getInstance().getReference().child("Comment").child(bookTitle);
-               if (commentRef.getKey()!=null){
-                   commentRef!!.getKey().remove();}
-
-            }
-        });*/
 
     }
 
     private void iniRvComment() {
 
-        listComment = new ArrayList<>();
         DatabaseReference commentRef = firebaseDatabase.getInstance().getReference().child("Comment").child(bookTitle);
         commentRef.keepSynced(true);
         commentRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if (dataSnapshot.exists()) {
+                    listComment = new ArrayList<>();
                     for (DataSnapshot snap : dataSnapshot.getChildren()) {
-                       // Log.e("Count ", "" + snap.getChildrenCount());
+                        // Log.e("Count ", "" + snap.getChildrenCount());
                         Comment comment = snap.getValue(Comment.class);
                         listComment.add(comment);
 
 
                     }
 
-                    commentAdapter = new CommentAdapter(getApplicationContext(), listComment);
+                    commentAdapter = new CommentAdapter(getApplicationContext(), listComment,bookTitle);
                     RvComment.setAdapter(commentAdapter);
 
                 }
@@ -163,12 +154,11 @@ public class BookCommentActivity extends AppCompatActivity {
         });
 
 
-
     }
 
-    private String displayName(){
+    private String displayName() {
 
-        uid=firebaseUser.getUid();
+        uid = firebaseUser.getUid();
         DatabaseReference ref;
         ref = firebaseDatabase.getReference();
         DatabaseReference useRef = ref.child("info").child(uid);
@@ -185,17 +175,19 @@ public class BookCommentActivity extends AppCompatActivity {
             }
 
         });
-        return name ;
+        return name;
 
     }
+
     private void showMessage(String message) {
 
-        Toast.makeText(getApplicationContext(),message,Toast.LENGTH_LONG).show();
+        Toast.makeText(getApplicationContext(), message, Toast.LENGTH_LONG).show();
 
     }
 
-
-
+    public String title(){
+        return bookTitle;
+    }
 
 }
 

@@ -9,6 +9,7 @@ import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -22,7 +23,7 @@ public class LoginActivity extends AppCompatActivity {
     private EditText userMail, userPassword;
     private Button btnLogin;
     private TextView signUp;
-    // private ProgressBar loginProgress;
+    private ProgressBar loginProgress;
     private FirebaseAuth auth;
 
     @Override
@@ -35,7 +36,7 @@ public class LoginActivity extends AppCompatActivity {
 
         initializeUI();
         //HomeActivity = new Intent(this,com.example.aws.blogapp.Activities.Home.class);
-
+        //loginProgress = findViewById(R.id.progressBar);
         signUp = findViewById(R.id.tvNewuser);
         signUp.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -61,7 +62,8 @@ public class LoginActivity extends AppCompatActivity {
 
 
     private void loginUserAccount() {
-        //loginProgress.setVisibility(View.VISIBLE);
+        //signUp.setVisibility(View.INVISIBLE);
+       loginProgress.setVisibility(View.VISIBLE);
 
         String email, password;
         email = userMail.getText().toString();
@@ -82,8 +84,8 @@ public class LoginActivity extends AppCompatActivity {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
                             Toast.makeText(getApplicationContext(), "Login successful!", Toast.LENGTH_LONG).show();
-                            // btnLogin.setVisibility(View.INVISIBLE);
-                            //   loginProgress.setVisibility(View.VISIBLE);
+                            btnLogin.setVisibility(View.INVISIBLE);
+                            loginProgress.setVisibility(View.VISIBLE);
 
 
                             Intent intent = new Intent(getApplicationContext(), HomeActivity.class);
@@ -91,8 +93,8 @@ public class LoginActivity extends AppCompatActivity {
                         }
                         else {
                             Toast.makeText(getApplicationContext(), "Login failed! Please try again later", Toast.LENGTH_LONG).show();
-                            // btnLogin.setVisibility(View.INVISIBLE);
-                            // loginProgress.setVisibility(View.VISIBLE);
+                             btnLogin.setVisibility(View.INVISIBLE);
+                            loginProgress.setVisibility(View.VISIBLE);
                         }
                     }
                 });
@@ -104,7 +106,7 @@ public class LoginActivity extends AppCompatActivity {
         userPassword = findViewById(R.id.etPassword);
 
         btnLogin = findViewById(R.id.btLogin);
-        //loginProgress = findViewById(R.id.login_progress);
+        loginProgress = findViewById(R.id.progressBar);
     }
 }
 

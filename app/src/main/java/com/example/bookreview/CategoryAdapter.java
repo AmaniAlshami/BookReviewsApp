@@ -22,12 +22,12 @@ public class CategoryAdapter extends RecyclerView.Adapter<CategoryView> implemen
 
     CustomFilter customFilter;
     Context context;
-    private List<Book> bookList = new ArrayList<>();
-    private List<Book> filteredList = new ArrayList<>();
+    List<Book> bookList = new ArrayList<>();
+    List<Book> filteredList ;
 
    public CategoryAdapter(Context context, List<Book> bookListt){
-       filteredList = bookList;
-       customFilter = new CustomFilter();
+       this.filteredList = bookList;
+       this.customFilter = new CustomFilter();
        this.context = context;
        this.bookList = bookListt;
     }

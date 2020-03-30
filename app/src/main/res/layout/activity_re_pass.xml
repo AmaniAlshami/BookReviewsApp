@@ -22,6 +22,7 @@
             android:layout_height="85dp"
             android:layout_marginLeft="0dp"
             android:layout_marginRight="290dp"
+            android:onClick="moveToHome"
             android:src="@drawable/icon"
             android:textColor="@color/colorWhite"
             android:transitionName="login" />
@@ -46,14 +47,14 @@
     <ScrollView
         android:id="@+id/sv"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:layout_marginTop="100dp">
 
         <RelativeLayout
             android:id="@+id/rlayout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_gravity="center"
-            android:layout_marginTop="50dp">
+            android:layout_gravity="center">
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/cv"

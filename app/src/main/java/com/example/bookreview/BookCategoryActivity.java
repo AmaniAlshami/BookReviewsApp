@@ -5,6 +5,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ProgressBar;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -26,6 +27,7 @@ import java.util.List;
 public class BookCategoryActivity extends AppCompatActivity {
     Toolbar toolbarHome;
     RecyclerView recyclerHome;
+
 
 
     List<Book> booktList= new ArrayList<>();
@@ -82,7 +84,7 @@ public class BookCategoryActivity extends AppCompatActivity {
             }
         });
 
- }
+ }/*
     public boolean onCreateOptionsMenu(Menu menu) {
 
         getMenuInflater().inflate(R.menu.home_menu,menu);
@@ -107,7 +109,7 @@ public class BookCategoryActivity extends AppCompatActivity {
         });
 
         return super.onCreateOptionsMenu(menu);
-    }
+    }*/
 
 
 

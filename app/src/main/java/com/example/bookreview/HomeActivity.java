@@ -90,7 +90,7 @@ public class HomeActivity extends AppCompatActivity {
                 FirebaseUser user = firebaseAuth.getCurrentUser();
                 if (user != null) {
                     // User is signed in
-                    toastMessage("أهلًا بك");
+                   // toastMessage("أهلًا بك");
                 } else {
                     // User is signed out
                     //toastMessage("Successfully signed out.");
@@ -136,7 +136,7 @@ public class HomeActivity extends AppCompatActivity {
 
         booktList.add(
                 new Book(
-                        "شقة زبيدة", "book1.ipg"));
+                        "شقة زبيدة", "https://firebasestorage.googleapis.com/v0/b/bookreview-d9b02.appspot.com/o/28.jpeg?alt=media&token=8086af39-0d56-43ee-a154-2bb91a4336b5"));
 
 
         // Recycle part

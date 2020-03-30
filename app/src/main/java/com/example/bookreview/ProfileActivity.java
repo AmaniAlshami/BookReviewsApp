@@ -134,10 +134,9 @@ public class ProfileActivity extends AppCompatActivity {
                     ref = FirebaseDatabase.getInstance().getReference();
                     ref.child("info").child(uid).setValue(info);
                     Toast.makeText(getApplicationContext(), "تم تحديث الاسم", Toast.LENGTH_SHORT).show();
-                    //startActivity(new Intent(getApplicationContext() , ProfileActivity.class));
                 } else if (Username.getText().toString().trim().equals("")) {
                     Toast.makeText(getApplicationContext(), "لايمكن تركه فارغًا", Toast.LENGTH_SHORT).show();
-                    // progressBar.setVisibility(View.GONE);
+
             }
 
                 //email
@@ -157,18 +156,16 @@ public class ProfileActivity extends AppCompatActivity {
                                         ref.child("info").child(uid).setValue(info);
                                         Toast.makeText(getApplicationContext(), "تم تحديث البريد الإلكتروني ، سجل من جديد", Toast.LENGTH_LONG).show();
                                         signOut();
+                                        finish();
                                         Intent i = new Intent(getApplicationContext(),LoginActivity.class);
                                         startActivity(i);
-                                        //progressBar.setVisibility(View.GONE);
                                     } else {
                                         Toast.makeText(getApplicationContext(), "نعتذر لم تتم العملية حاول مرة أخرى", Toast.LENGTH_LONG).show();
-                                        // progressBar.setVisibility(View.GONE);
                                     }
                                 }
                             });
                 } else if (useremail.getText().toString().trim().equals("")) {
                     useremail.setError("Enter email");
-                    // progressBar.setVisibility(View.GONE);
                 }
             }
         });
@@ -182,6 +179,7 @@ public class ProfileActivity extends AppCompatActivity {
                 btLogin.setVisibility(View.INVISIBLE);
                 FirebaseAuth.getInstance().signOut();
                 startActivity(new Intent(getApplicationContext() , HomeActivity.class));
+                finish();
                 Toast.makeText(getApplicationContext(), "تم تسجيل الخروج ، ننتظر عودتك قريبًا", Toast.LENGTH_SHORT).show();
 
             }
@@ -196,5 +194,6 @@ public class ProfileActivity extends AppCompatActivity {
 
         Intent intent = new Intent(getApplicationContext(), HomeActivity.class);
         startActivity(intent);
+
     }
 }

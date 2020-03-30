@@ -2,6 +2,7 @@ package com.example.bookreview;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -12,6 +13,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -23,7 +25,6 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 
@@ -47,7 +48,8 @@ public class BookCommentActivity extends AppCompatActivity {
     List<Comment> listComment;
     Comment comment;
     FirebaseUser user;
-    String uid, name, cid;
+    String uid,  cid , name;
+    ProgressBar progressBar4 ;
 
 
     @Override
@@ -55,9 +57,12 @@ public class BookCommentActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_book_comment);
 
-
         RvComment = findViewById(R.id.rv_comment);
-        RvComment.setLayoutManager(new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.VERTICAL, false));
+        listComment = new ArrayList<>();
+
+        GridLayoutManager layoutManager = new GridLayoutManager(getApplicationContext(),1);
+        RvComment.setLayoutManager(layoutManager);
+
 
 
         del = findViewById(R.id.btndelete);
@@ -67,6 +72,8 @@ public class BookCommentActivity extends AppCompatActivity {
         image = findViewById(R.id.im);
         btnAddComment = findViewById(R.id.post_detail_add_comment_btn);
         editTextComment = findViewById(R.id.post_detail_comment);
+        progressBar4 = findViewById(R.id.progressBar4);
+
 
 
         String bookImage = getIntent().getStringExtra("bookImage");
@@ -82,28 +89,25 @@ public class BookCommentActivity extends AppCompatActivity {
 
         firebaseDatabase = FirebaseDatabase.getInstance();
 
-       // Intent i = new Intent(getApplicationContext(),CommentAdapter.class);
-       // i.putExtra("Title",title());
-      //  commentAdapter = new CommentAdapter(getApplicationContext(),title());
 
 
 
         btnAddComment.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-
+                btnAddComment.setVisibility(View.INVISIBLE);
+                progressBar4.setVisibility(View.VISIBLE);
                 firebaseAuth = FirebaseAuth.getInstance();
+                firebaseUser = firebaseAuth.getCurrentUser();
                 FirebaseUser user = firebaseAuth.getCurrentUser();
                 if (user != null) {
-                firebaseUser = firebaseAuth.getCurrentUser();
-                    displayName();
-                btnAddComment.setVisibility(View.INVISIBLE);
+                    uid = firebaseUser.getUid();
+                    btnAddComment.setVisibility(View.INVISIBLE);
                 DatabaseReference commentReference = FirebaseDatabase.getInstance().getReference().child("Comment").child(bookTitle).push();
 
                 String comment_content = editTextComment.getText().toString();
                 String uid = firebaseUser.getUid();
-                String uname = name;
+                String uname = displayName(uid) ;
                 cid = commentReference.getKey();
 
                 comment = new Comment(comment_content, uid, uname, cid);
@@ -113,15 +117,25 @@ public class BookCommentActivity extends AppCompatActivity {
                         showMessage("شكرًا لإنارتك");
                         editTextComment.setText("");
                         btnAddComment.setVisibility(View.VISIBLE);
+                        progressBar4.setVisibility(View.INVISIBLE);
+
                     }
                 }).addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
                         showMessage("عذٌرا هناك مشكلة حاول مرة أخرى");
+                        btnAddComment.setVisibility(View.VISIBLE);
+                        progressBar4.setVisibility(View.INVISIBLE);
+
                     }
-                });}
+                });
+
+                }
+
                 else {
                     showMessage("سجل معنا لتشاركنا إضاءتك");
+                    btnAddComment.setVisibility(View.VISIBLE);
+                    progressBar4.setVisibility(View.INVISIBLE);
                 }
 
 
@@ -149,8 +163,10 @@ public class BookCommentActivity extends AppCompatActivity {
 
                     }
 
-                    commentAdapter = new CommentAdapter(getApplicationContext(), listComment,bookTitle);
+                    commentAdapter = new CommentAdapter(getApplicationContext(), listComment,bookTitle,uid);
                     RvComment.setAdapter(commentAdapter);
+
+
 
                 }
             }
@@ -162,19 +178,19 @@ public class BookCommentActivity extends AppCompatActivity {
         });
 
 
+
     }
 
-    private String displayName() {
-
-        uid = firebaseUser.getUid();
+    private String displayName(String uid1) {
         DatabaseReference ref;
         ref = firebaseDatabase.getReference();
-        DatabaseReference useRef = ref.child("info").child(uid);
+        ref.keepSynced(true);
+        DatabaseReference useRef = ref.child("info").child(uid1);
         useRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
-                name = dataSnapshot.child("name").getValue().toString();
+              name = dataSnapshot.child("name").getValue().toString();
             }
 
             @Override
@@ -193,9 +209,7 @@ public class BookCommentActivity extends AppCompatActivity {
 
     }
 
-    public String title(){
-        return bookTitle;
-    }
+
 
 }
 

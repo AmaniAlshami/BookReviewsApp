@@ -14,6 +14,8 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -26,21 +28,24 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.CommentV
 
     private Context mContext;
     private List<Comment> mData ;
-    BookCommentActivity b ;
-    String bookT2 ;
+    String bookT2 , uid ,cuid;
+
+    FirebaseAuth firebaseAuth;
+    FirebaseUser firebaseUser;
 
 
-    public CommentAdapter(Context mContext, List<Comment> mData,String bookT) {
+
+
+
+    public CommentAdapter(Context mContext, List<Comment> mData,String bookT,String uid) {
         this.mContext = mContext;
         this.mData = mData;
         this.bookT2 = bookT;
+        this.uid = uid ;
 
     }
 
-   /* public CommentAdapter(Context mContext, String bookT) {
-        this.mContext = mContext;
-        this.bookT2 = bookT;
-    }*/
+
 
     @NonNull
     @Override
@@ -104,17 +109,28 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.CommentV
             tv_del.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Toast.makeText(mContext,"تم الحذف",Toast.LENGTH_LONG).show();
+                    firebaseAuth = FirebaseAuth.getInstance();
+                    FirebaseUser user = firebaseAuth.getInstance().getCurrentUser();
+                    if(user!=null ){
+                        cuid = user.getUid();
+                        if( cuid == uid){
                     delcomment();
+                    Toast.makeText(mContext,"تم الحذف",Toast.LENGTH_LONG).show();}
 
-                }
+                    else{
+                    Toast.makeText(mContext,"لايمكنك الحذف",Toast.LENGTH_LONG).show();} }
+
+                    else{
+                    Toast.makeText(mContext,"سجل دخولك أولًا",Toast.LENGTH_LONG).show();}
+
+            }
+
             });
 
         }
 
         public void delcomment(){
-            //Intent i = new Intent();
-           // String bookT = i.getStringExtra("Title");
+
             DatabaseReference ref = FirebaseDatabase.getInstance().getReference().child("Comment");
             ref.child(bookT2).addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override

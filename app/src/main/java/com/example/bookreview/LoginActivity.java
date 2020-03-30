@@ -35,8 +35,6 @@ public class LoginActivity extends AppCompatActivity {
        auth = FirebaseAuth.getInstance();
 
         initializeUI();
-        //HomeActivity = new Intent(this,com.example.aws.blogapp.Activities.Home.class);
-        //loginProgress = findViewById(R.id.progressBar);
         signUp = findViewById(R.id.tvNewuser);
         signUp.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -62,7 +60,7 @@ public class LoginActivity extends AppCompatActivity {
 
 
     private void loginUserAccount() {
-        //signUp.setVisibility(View.INVISIBLE);
+        btnLogin.setVisibility(View.INVISIBLE);
        loginProgress.setVisibility(View.VISIBLE);
 
         String email, password;
@@ -70,11 +68,11 @@ public class LoginActivity extends AppCompatActivity {
         password = userPassword.getText().toString();
 
         if (TextUtils.isEmpty(email)) {
-            Toast.makeText(getApplicationContext(), "Please enter email...", Toast.LENGTH_LONG).show();
+            Toast.makeText(getApplicationContext(), "فضلًا أدخل البريد الإلكتروني", Toast.LENGTH_LONG).show();
             return;
         }
         if (TextUtils.isEmpty(password)) {
-            Toast.makeText(getApplicationContext(), "Please enter password!", Toast.LENGTH_LONG).show();
+            Toast.makeText(getApplicationContext(), "فضلًا أدخل كلمة المرور", Toast.LENGTH_LONG).show();
             return;
         }
 
@@ -83,7 +81,7 @@ public class LoginActivity extends AppCompatActivity {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
-                            Toast.makeText(getApplicationContext(), "Login successful!", Toast.LENGTH_LONG).show();
+                            Toast.makeText(getApplicationContext(), "أهلًا بك ", Toast.LENGTH_LONG).show();
                             btnLogin.setVisibility(View.INVISIBLE);
                             loginProgress.setVisibility(View.VISIBLE);
 
@@ -92,9 +90,9 @@ public class LoginActivity extends AppCompatActivity {
                             startActivity(intent);
                         }
                         else {
-                            Toast.makeText(getApplicationContext(), "Login failed! Please try again later", Toast.LENGTH_LONG).show();
-                             btnLogin.setVisibility(View.INVISIBLE);
-                            loginProgress.setVisibility(View.VISIBLE);
+                            Toast.makeText(getApplicationContext(), "نعتذر هنالك مشكلة حاول مرة أخرى", Toast.LENGTH_LONG).show();
+                             btnLogin.setVisibility(View.VISIBLE);
+                            loginProgress.setVisibility(View.INVISIBLE);
                         }
                     }
                 });
@@ -110,9 +108,10 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     public void moveToHome(View v){
-
         Intent intent = new Intent(getApplicationContext(), HomeActivity.class);
         startActivity(intent);
+
+
     }
 }
 

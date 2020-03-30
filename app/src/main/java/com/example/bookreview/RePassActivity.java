@@ -69,7 +69,8 @@ public class RePassActivity extends AppCompatActivity {
                                         if (task.isSuccessful()) {
                                             Toast.makeText(getApplicationContext(), "Password is updated, sign in with new password!", Toast.LENGTH_SHORT).show();
                                             signOut();
-                                            Intent i = new Intent(getApplicationContext(), HomeActivity.class);
+                                            finish();
+                                            Intent i = new Intent(getApplicationContext(),LoginActivity.class);
                                             startActivity(i);
                                             //progressBar.setVisibility(View.GONE);
                                         } else {
@@ -102,5 +103,12 @@ public class RePassActivity extends AppCompatActivity {
     }
 
     public void signOut() {auth.signOut();}
+
+    public void moveToHome(View v){
+
+        Intent intent = new Intent(getApplicationContext(), HomeActivity.class);
+        startActivity(intent);
+        finish();
+    }
 }
 

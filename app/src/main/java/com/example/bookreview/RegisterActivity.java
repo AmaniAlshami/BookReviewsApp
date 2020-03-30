@@ -21,7 +21,7 @@ import com.google.firebase.database.FirebaseDatabase;
 
 public class RegisterActivity extends AppCompatActivity {
     private EditText userEmail,userPassword,userPAssword2,userName;
-   // private ProgressBar loadingProgress;
+    private ProgressBar loadingProgress;
     private Button regBtn;
 
      private FirebaseAuth mAuth;
@@ -37,9 +37,9 @@ public class RegisterActivity extends AppCompatActivity {
         userPassword = findViewById(R.id.etPassword);
         userPAssword2 = findViewById(R.id.etRePassword);
         userName = findViewById(R.id.etUsername);
-        // loadingProgress = findViewById(R.id.regProgressBar);
+        loadingProgress = findViewById(R.id.progressBar2);
         regBtn = findViewById(R.id.btsignup);
-        // loadingProgress.setVisibility(View.INVISIBLE);
+        loadingProgress.setVisibility(View.INVISIBLE);
 
 
         mAuth = FirebaseAuth.getInstance();
@@ -50,8 +50,8 @@ public class RegisterActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                //regBtn.setVisibility(View.INVISIBLE);
-                //loadingProgress.setVisibility(View.VISIBLE);
+                regBtn.setVisibility(View.INVISIBLE);
+                loadingProgress.setVisibility(View.VISIBLE);
                 final String email = userEmail.getText().toString();
                 final String password = userPassword.getText().toString();
                 final String password2 = userPAssword2.getText().toString();
@@ -61,9 +61,9 @@ public class RegisterActivity extends AppCompatActivity {
 
                     // something goes wrong : all fields must be filled
                     // we need to display an error message
-                    showMessage("Please Verify all fields") ;
-                    //regBtn.setVisibility(View.VISIBLE);
-                    //loadingProgress.setVisibility(View.INVISIBLE);
+                    showMessage("فضلًا املأ الفراغات") ;
+                    regBtn.setVisibility(View.VISIBLE);
+                    loadingProgress.setVisibility(View.INVISIBLE);
                 }
                 else {
                     // everything is ok and all fields are filled now we can start creating user account
@@ -89,16 +89,16 @@ public class RegisterActivity extends AppCompatActivity {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         if (task.isSuccessful()) {
                             // user account created successfully
-                            showMessage("Account created");
+                            showMessage("سعدنا بإنضمامك");
                             info();
                             updateUI();
                         }
                         else
                         {
                             // account creation failed
-                            showMessage("account creation failed" + task.getException().getMessage());
-                            // regBtn.setVisibility(View.VISIBLE);
-                            // loadingProgress.setVisibility(View.INVISIBLE);
+                            showMessage("نعتذر هنالك خطأ حاول مرة أخرى");
+                             regBtn.setVisibility(View.VISIBLE);
+                             loadingProgress.setVisibility(View.INVISIBLE);
                         }
                     }
                 });
@@ -136,6 +136,7 @@ public class RegisterActivity extends AppCompatActivity {
 
         Intent intent = new Intent(getApplicationContext(), HomeActivity.class);
         startActivity(intent);
+        finish();
     }
 }
 
